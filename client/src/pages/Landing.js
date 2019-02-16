@@ -25,9 +25,9 @@ class Landing extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container landing-container">
         <h1>{Constants.APP_NAME}</h1>
-        <p className="lead">Get started and enter an address in Los Angeles</p>
+        <p className="lead">Get started and enter an address in Los Angeles ☀️</p>
 
         <form onSubmit={this._searchAddress}>
           <div className="input-group">

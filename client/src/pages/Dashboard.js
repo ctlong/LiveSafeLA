@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
       <div>
         <Navbar updateAddress={this._updateAddress} searchAddress={this._searchAddress} />
 
-        <div className="container-fluid fill">
+        <div className="container-fluid main">
           <div className="row">
             <div className="col-8 map-col">
               <Map />
