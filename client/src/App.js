@@ -8,7 +8,7 @@ import './styles/app.scss';
 
 const App = () => (
   <Router>
-    <div>
+    <div className="h-100">
       <Route exact path="/" component={Landing} />
       <Route path="/dashboard" component={Dashboard} />
     </div>

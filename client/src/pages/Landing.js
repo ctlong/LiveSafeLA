@@ -25,26 +25,28 @@ class Landing extends React.Component {
 
   render() {
     return (
-      <div className="container landing-container h-100">
-        <div className="row landing-content align-items-center h-100">
-          <div className="col">
-            <img src="/logo.svg" href="Live Safe LA" className="logo"/>
-          </div>
+      <div className="landing h-100">
+        <div className="container landing-container h-100">
+          <div className="row landing-content align-items-center h-100">
+            <div className="col">
+              <img src="/logo.svg" href="Live Safe LA" className="logo"/>
+            </div>
 
-          <div className="col">
-            <p className="lead">{Constants.APP_TAGLINE}</p>
+            <div className="col">
+              <p className="lead">{Constants.APP_TAGLINE}</p>
 
-            <form onSubmit={this._searchAddress}>
-              <div className="input-group">
-                <input type="text" className="form-control form-control-lg" placeholder="1234 Main Street" onChange = {this._updateAddress} />
+              <form onSubmit={this._searchAddress}>
+                <div className="input-group">
+                  <input type="text" className="form-control form-control-lg" placeholder="1234 Main Street" onChange = {this._updateAddress} />
 
-                <div className="input-group-append">
-                  <button className="btn btn-search btn-lg" type="button" onClick={this._searchAddress}>Search</button>
+                  <div className="input-group-append">
+                    <button className="btn btn-search btn-lg" type="button" onClick={this._searchAddress}>Search</button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
 
-            <p className="credit">{Constants.APP_CREDIT}</p>
+              <p className="credit">{Constants.APP_CREDIT}</p>
+            </div>
           </div>
         </div>
       </div>

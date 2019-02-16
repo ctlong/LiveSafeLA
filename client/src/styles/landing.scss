@@ -1,29 +1,35 @@
-.landing-container {
-  background-color: #E03B3B;
-  color: #FFFFFF;
+.landing {
+  // background-color: #E03B3B;
+  background: #cb2d3e;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-  padding: 3rem 0;
 
-  .landing-content {
-    text-align: center;
+  .landing-container {
+    color: #FFFFFF;
 
-    .logo {
-      width: 100%;
-      max-width: 400px;
-    }
+    padding: 3rem 0;
 
-    .lead {
-      font-size: 2rem;
-    }
+    .landing-content {
+      text-align: center;
 
-    .btn-search {
-      background-color: #f2ab21;
-    }
+      .logo {
+        width: 100%;
+      }
 
-    .credit {
-      margin-top: 2rem;
-      font-weight: 300;
-      font-style: italic;
+      .lead {
+        font-size: 2rem;
+      }
+
+      .btn-search {
+        background-color: #f2ab21;
+      }
+
+      .credit {
+        margin: 2rem 0 0;
+        font-weight: 300;
+        font-style: italic;
+      }
     }
   }
 }
