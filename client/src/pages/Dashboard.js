@@ -13,8 +13,18 @@ class Dashboard extends React.Component {
     super(props);
 
     this.state = {
-      address: ''
+      address: '',
+      data: {}
     }
+  }
+
+  componentDidMount()  {
+    // Load in data from the API
+    fetch('/api/search')
+    .then(response => response.json())
+    .then(data => {
+      this.setState({ data });
+    });
   }
 
   _updateAddress = (event) => {
@@ -39,7 +49,7 @@ class Dashboard extends React.Component {
         <div className="container-fluid main">
           <div className="row">
             <div className="col-8 map-col">
-              <Map />
+              <Map data={this.state.data} />
             </div>
 
             <div className="col sidebar-col">

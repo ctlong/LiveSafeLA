@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Constants from '../utils/constants.js';
-
 export default (props) => (
   <nav className="navbar fixed-top navbar-red justify-content-start">
     <a className="navbar-brand" href="/"><img src="/navbar_logo.svg" alt="LiveSafe LA" /></a>
