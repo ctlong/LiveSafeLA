@@ -25,19 +25,28 @@ class Landing extends React.Component {
 
   render() {
     return (
-      <div className="container landing-container">
-        <h1>{Constants.APP_NAME}</h1>
-        <p className="lead">Get started and enter an address in Los Angeles ☀️</p>
-
-        <form onSubmit={this._searchAddress}>
-          <div className="input-group">
-            <input type="text" className="form-control" placeholder="1234 Main Street" onChange = {this._updateAddress} />
-
-            <div className="input-group-append">
-              <button className="btn btn-outline-secondary" type="button" onClick={this._searchAddress}>Search</button>
-            </div>
+      <div className="container landing-container h-100">
+        <div className="row landing-content align-items-center h-100">
+          <div className="col">
+            <img src="/logo.svg" href="Live Safe LA" className="logo"/>
           </div>
-        </form>
+
+          <div className="col">
+            <p className="lead">{Constants.APP_TAGLINE}</p>
+
+            <form onSubmit={this._searchAddress}>
+              <div className="input-group">
+                <input type="text" className="form-control form-control-lg" placeholder="1234 Main Street" onChange = {this._updateAddress} />
+
+                <div className="input-group-append">
+                  <button className="btn btn-search btn-lg" type="button" onClick={this._searchAddress}>Search</button>
+                </div>
+              </div>
+            </form>
+
+            <p className="credit">{Constants.APP_CREDIT}</p>
+          </div>
+        </div>
       </div>
     )
   }

@@ -3,7 +3,7 @@ import React from 'react';
 import Constants from '../utils/constants.js';
 
 export default (props) => (
-  <nav className="navbar fixed-top navbar-light bg-light">
+  <nav className="navbar fixed-top navbar-dark bg-dark">
     <a className="navbar-brand" href="/">{Constants.APP_NAME}</a>
 
     <form className="form-inline" onSubmit={props.searchAddress}>

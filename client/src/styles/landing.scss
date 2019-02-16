@@ -1,4 +1,29 @@
 .landing-container {
-  max-width: 600px;
+  background-color: #E03B3B;
+  color: #FFFFFF;
+
   padding: 3rem 0;
+
+  .landing-content {
+    text-align: center;
+
+    .logo {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .lead {
+      font-size: 2rem;
+    }
+
+    .btn-search {
+      background-color: #f2ab21;
+    }
+
+    .credit {
+      margin-top: 2rem;
+      font-weight: 300;
+      font-style: italic;
+    }
+  }
 }
