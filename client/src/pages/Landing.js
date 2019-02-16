@@ -18,8 +18,9 @@ class Landing extends React.Component {
     });
   }
 
-  _searchAddress = () => {
-    this.props.history.push('/dashboard?location=' + this.state.address);
+  _searchAddress = (event) => {
+    event.preventDefault();
+    this.props.history.push('/dashboard?address=' + this.state.address);
   }
 
   render() {

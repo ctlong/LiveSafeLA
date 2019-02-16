@@ -7,16 +7,38 @@ import queryString from "query-string"
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      address: ''
+    }
+  }
+
+  _updateAddress = (event) => {
+    this.setState({
+      address: event.target.value
+    });
+  }
+
+  _searchAddress = (event) => {
+    event.preventDefault();
+    window.location.href = '/dashboard?address=' + this.state.address;
   }
 
   render() {
     const values = queryString.parse(this.props.location.search)
-    const location = values.location;
+    const address = values.address;
 
     return (
       <div>
         <nav className="navbar fixed-top navbar-light bg-light">
-          <a className="navbar-brand" href="#">{Constants.APP_NAME}</a>
+          <a className="navbar-brand" href="/">{Constants.APP_NAME}</a>
+
+          <form className="form-inline" onSubmit={this._searchAddress}>
+            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange = {this._updateAddress}/>
+            <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this._searchAddress}>Search</button>
+          </form>
+
+          <a className="btn btn-primary" href="#">Sign Up</a>
         </nav>
 
         <div className="container-fluid fill">
