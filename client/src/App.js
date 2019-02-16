@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 
-import './styles/app.css';
+import './styles/app.scss';
 
 const App = () => (
   <Router>
