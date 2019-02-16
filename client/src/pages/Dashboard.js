@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React from 'react';
 
 import Constants from '../utils/constants.js';
 import queryString from "query-string"
@@ -33,15 +32,13 @@ class Dashboard extends React.Component {
       address,
       x,
       y
-    }, () => {
-      // Load in data from the API
-      fetch(`/api/search?long=${this.state.x}&lat=${this.state.y}`)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ data });
-        console.log(data);
-      });
     });
+  }
+
+  _updateData = (data) => {
+    this.setState({
+      data
+    })
   }
 
   _updateAddress = (event) => {
@@ -63,11 +60,11 @@ class Dashboard extends React.Component {
         <div className="container-fluid main">
           <div className="row">
             <div className="col-8 map-col">
-              <Map data={this.state.data} x={this.state.x} y={this.state.y} />
+              <Map x={this.state.x} y={this.state.y} updateData={this._updateData}/>
             </div>
 
             <div className="col sidebar-col">
-              <Sidebar />
+              <Sidebar data={this.state.data} />
             </div>
           </div>
         </div>

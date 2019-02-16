@@ -2,14 +2,9 @@ import React from 'react';
 
 import {Map as EsriMap} from '@esri/react-arcgis';
 
-import BermudaTriangle from './esri/TestLayer';
 import CrimeLayer from './esri/CrimeLayer';
 
 class Map extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="map">
@@ -19,8 +14,11 @@ class Map extends React.Component {
             zoom: 15
           }}
         >
-          <BermudaTriangle />
-          <CrimeLayer data={this.props.data} x={this.props.x} y={this.props.y}/>
+          <CrimeLayer
+            x={this.props.x}
+            y={this.props.y}
+            updateData={this.props.updateData}
+          />
         </EsriMap>
       </div>
     )

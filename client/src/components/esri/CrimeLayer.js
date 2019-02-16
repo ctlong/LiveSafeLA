@@ -93,6 +93,7 @@ export default class CrimeLayer extends React.Component {
     .then(data => {
       this.setState({data}, () => {
         this.drawPoints(this.state.data)
+        this.props.updateData(data);
       });
     });
   }

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React from 'react';
 
 import Constants from '../utils/constants.js';
 
@@ -115,7 +114,7 @@ class Landing extends React.Component {
         <div className="container landing-container h-100">
           <div className="row landing-content align-items-center h-100">
             <div className="col">
-              <img src="/logo.svg" href="Live Safe LA" className="logo"/>
+              <img src="/logo.svg" alt="Live Safe LA" className="logo"/>
             </div>
 
             <div className="col">

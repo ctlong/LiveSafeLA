@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Constants from '../utils/constants.js';
-
 export default (props) => (
   <div className="sidebar">
     <div className="sidebar-section">
