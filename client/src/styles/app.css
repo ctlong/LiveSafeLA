@@ -1,0 +1,49 @@
+.fill {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.fill .row {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 3.5rem;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.map-col {
+  position: relative;
+}
+
+.map {
+  background-image: url('https://www.nba.com/lakers/sites/lakers/files/styles/story_main_photo/public/190214-ts.jpg?itok=ozTz6YB3');
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-size: cover;
+}
+
+.sidebar-col {
+  position: relative;
+}
+
+.sidebar {
+  overflow-y: scroll;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.sidebar-section {
+  padding: 1rem;
+}
