@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const app_token = (process.env.APP_TOKEN ? `$$app_token=${process.env.APP_TOKEN}&` : '');
-const reqString = `https://data.lacity.org/resource/7fvc-faax.json?${app_token}$limit=2000&$order=date_occ DESC&$select=date_occ, time_occ, vict_age, vict_sex, weapon_used_cd, location_1&`
+const reqString = `https://data.lacity.org/resource/7fvc-faax.json?${app_token}$limit=1000&$order=date_occ DESC&$select=date_occ, time_occ, vict_age, vict_sex, weapon_used_cd, location_1&`
 
 function httpRequest(params) {
     return new Promise(function(resolve, reject) {
@@ -47,39 +47,72 @@ app.get('/api/search', (req, res) => {
     var opts = {
         lat: req.query.lat || 34.046,
         long: req.query.long || -118.2509,
-        crm_cd: 'crm_cd = \'886\''
+        crm_cd: 'crm_cd = \'648\''
     };
     httpRequest(opts).then((httpRes) => {
+        results['Arson'] = httpRes;
+        
+        opts.crm_cd = '(crm_cd = \'230\' OR crm_cd = \'231\' OR crm_cd = \'235\' OR crm_cd = \'622\' OR crm_cd = \'623\' OR crm_cd = \'624\' OR crm_cd = \'625\')'
+        return httpRequest(opts)
+    }).then((httpRes) => {
+        results['Assault'] = httpRes;
+        
+        opts.crm_cd = '(crm_cd = \'480\' OR crm_cd = \'485\')'
+        return httpRequest(opts)
+    }).then((httpRes) => {
+        results['Bike Theft'] = httpRes;
+        
+        opts.crm_cd = '(crm_cd = \'310\' OR crm_cd = \'320\')'
+        return httpRequest(opts)
+    }).then((httpRes) => {
+        results['Burglary'] = httpRes;
+        
+        opts.crm_cd = 'crm_cd = \'886\''
+        return httpRequest(opts)
+    }).then((httpRes) => {
         results['Disturbing the Peace'] = httpRes;
         
-        opts.crm_cd = `(crm_cd = \'110\' OR crm_cd = \'113\')`
+        opts.crm_cd = '(crm_cd = \'110\' OR crm_cd = \'113\')'
         return httpRequest(opts)
     }).then((httpRes) => {
         results['Homicide'] = httpRes;
         
-        opts.crm_cd = `(crm_cd = \'210\' OR crm_cd = \'220\')`
+        opts.crm_cd = '(crm_cd = \'351\' OR crm_cd = \'352\' OR crm_cd = \'451\' OR crm_cd = \'452\')'
+        return httpRequest(opts)
+    }).then((httpRes) => {
+        results['Pickpocketing/Purse-snatching'] = httpRes;
+        
+        opts.crm_cd = '(crm_cd = \'210\' OR crm_cd = \'220\')'
         return httpRequest(opts)
     }).then((httpRes) => {
         results['Robbery'] = httpRes;
         
-        opts.crm_cd = `(crm_cd = \'121\' OR crm_cd = \'122\' OR crm_cd = \'760\' OR crm_cd = \'805\' OR crm_cd = \'822\' OR crm_cd = \'860\')`
+        opts.crm_cd = '(crm_cd = \'121\' OR crm_cd = \'122\' OR crm_cd = \'760\' OR crm_cd = \'805\' OR crm_cd = \'822\' OR crm_cd = \'860\')'
         return httpRequest(opts)
     }).then((httpRes) => {
         results['Sex Crimes'] = httpRes;
         
-        opts.crm_cd = `(crm_cd = \'341\' OR crm_cd = \'343\' OR crm_cd = \'350\' OR crm_cd = \'440\' OR crm_cd = \'441\' OR crm_cd = \'442\' OR crm_cd = \'443\' OR crm_cd = \'450\')`
+        opts.crm_cd = '(crm_cd = \'341\' OR crm_cd = \'343\' OR crm_cd = \'350\' OR crm_cd = \'440\' OR crm_cd = \'441\' OR crm_cd = \'442\' OR crm_cd = \'443\' OR crm_cd = \'450\')'
         return httpRequest(opts)
     }).then((httpRes) => {
         results['Theft/Larceny'] = httpRes;
         
-        opts.crm_cd = `(crm_cd = \'740\' OR crm_cd = \'745\')`
+        opts.crm_cd = '(crm_cd = \'740\' OR crm_cd = \'745\')'
         return httpRequest(opts)
     }).then((httpRes) => {
         results['Vandalism'] = httpRes;
-        res.json(results);
         
-        // opts.crm_cd = `(crm_cd = \'110\' OR crm_cd = \'113\')`
-        // return httpRequest(opts)
+        opts.crm_cd = '(crm_cd = \'330\' OR crm_cd = \'331\' OR crm_cd = \'410\' OR crm_cd = \'420\' OR crm_cd = \'421\')'
+        return httpRequest(opts)
+    }).then((httpRes) => {
+        results['Vehicle Break-In'] = httpRes;
+
+        opts.crm_cd = '(crm_cd = \'510\' OR crm_cd = \'520\')'
+        return httpRequest(opts)
+    }).then((httpRes) => {
+        results['Vehicle Theft'] = httpRes;
+
+        res.json(results);
     })
 
     // https.get(`https://data.lacity.org/resource/7fvc-faax.json?$limit=5000&$order=crm_cd ASC&$where=within_circle(location_1,${lat},${long},5000)`, (rest) => {
