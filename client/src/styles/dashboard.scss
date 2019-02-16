@@ -1,3 +1,16 @@
+.navbar {
+  .search-form {
+    width: 400px;
+    .input-group {
+      width: 100%;
+    }
+  }
+
+  .signup-btn {
+    margin-left: auto;
+  }
+}
+
 .main {
   position: fixed;
   top: 0;
@@ -11,7 +24,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    padding-top: 3.5rem;
+    padding-top: 4.5rem;
     margin-right: 0;
     margin-left: 0;
   }
