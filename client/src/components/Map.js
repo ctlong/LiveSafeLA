@@ -20,7 +20,7 @@ class Map extends React.Component {
           }}
         >
           <BermudaTriangle />
-          <CrimeLayer />
+          <CrimeLayer data={this.props.data} x={this.props.x} y={this.props.y}/>
         </EsriMap>
       </div>
     )
