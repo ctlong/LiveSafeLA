@@ -1,0 +1,10 @@
+// Variable overrides
+$font-family-sans-serif: "Lato", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+// Bootstrap and its default variables
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// Custom SCSS
+@import "./theme.scss";
+@import "./landing.scss";
+@import "./dashboard.scss";

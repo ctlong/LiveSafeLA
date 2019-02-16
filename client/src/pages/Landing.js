@@ -18,25 +18,37 @@ class Landing extends React.Component {
     });
   }
 
-  _searchAddress = () => {
-    this.props.history.push('/dashboard?location=' + this.state.address);
+  _searchAddress = (event) => {
+    event.preventDefault();
+    this.props.history.push('/dashboard?address=' + this.state.address);
   }
 
   render() {
     return (
-      <div className="container">
-        <h1>{Constants.APP_NAME}</h1>
-        <p className="lead">Get started and enter an address in Los Angeles</p>
+      <div className="landing h-100">
+        <div className="container landing-container h-100">
+          <div className="row landing-content align-items-center h-100">
+            <div className="col">
+              <img src="/logo.svg" href="Live Safe LA" className="logo"/>
+            </div>
 
-        <form onSubmit={this._searchAddress}>
-          <div className="input-group">
-            <input type="text" className="form-control" placeholder="1234 Main Street" onChange = {this._updateAddress} />
+            <div className="col">
+              <p className="lead">{Constants.APP_TAGLINE}</p>
 
-            <div className="input-group-append">
-              <button className="btn btn-outline-secondary" type="button" onClick={this._searchAddress}>Search</button>
+              <form onSubmit={this._searchAddress}>
+                <div className="input-group">
+                  <input type="text" className="form-control form-control-lg" placeholder="1234 Main Street" onChange = {this._updateAddress} />
+
+                  <div className="input-group-append">
+                    <button className="btn btn-search btn-lg" type="button" onClick={this._searchAddress}>Search</button>
+                  </div>
+                </div>
+              </form>
+
+              <p className="credit">{Constants.APP_CREDIT}</p>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     )
   }

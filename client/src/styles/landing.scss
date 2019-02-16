@@ -1,0 +1,46 @@
+// Fade in stuff
+@-webkit-keyframes fadeIn {
+  0%   {opacity: 0;}
+  100%  {bottom: 1;}
+}
+
+@keyframes fadeIn {
+  0%   {opacity: 0;}
+  100%  {bottom: 1;}
+}
+
+.landing {
+  // background-color: #E03B3B;
+  background: #cb2d3e;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+  .landing-container {
+    color: #FFFFFF;
+    padding: 3rem 0;
+
+    .landing-content {
+      animation-fill-mode: both;
+      animation-name: fadeIn;
+      animation-duration: 1.5s;
+      animation-delay: 0.25s;
+
+      text-align: center;
+
+      .logo {
+        width: 100%;
+      }
+
+      .lead {
+        font-size: 2rem;
+      }
+
+      .credit {
+        margin: 2rem 0 0;
+        font-weight: 300;
+        font-style: italic;
+      }
+    }
+  }
+}
