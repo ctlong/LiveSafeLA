@@ -19,11 +19,28 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount()  {
-    // Load in data from the API
-    fetch('/api/search')
-    .then(response => response.json())
-    .then(data => {
-      this.setState({ data });
+    const queries = queryString.parse(this.props.location.search);
+    const address = queries.address;
+    const x = queries.x;
+    const y = queries.y;
+
+    if (address === undefined || x === undefined || y === undefined) {
+      // Go to the home page
+      this.props.history.push(`/`);
+    }
+
+    this.setState({
+      address,
+      x,
+      y
+    }, () => {
+      // Load in data from the API
+      fetch(`/api/search?long=${this.state.x}&lat=${this.state.y}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ data });
+        console.log(data);
+      });
     });
   }
 
@@ -39,17 +56,14 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const values = queryString.parse(this.props.location.search)
-    const address = values.address;
-
     return (
       <div>
-        <Navbar updateAddress={this._updateAddress} searchAddress={this._searchAddress} />
+        <Navbar address={this.state.address} updateAddress={this._updateAddress} searchAddress={this._searchAddress} />
 
         <div className="container-fluid main">
           <div className="row">
             <div className="col-8 map-col">
-              <Map data={this.state.data} />
+              <Map data={this.state.data} x={this.state.x} y={this.state.y} />
             </div>
 
             <div className="col sidebar-col">

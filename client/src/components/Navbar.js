@@ -6,7 +6,7 @@ export default (props) => (
 
     <form className="form-inline search-form" onSubmit={props.searchAddress}>
       <div className="input-group">
-        <input className="form-control" type="search" placeholder="Search" aria-label="Search" onChange = {props.updateAddress}/>
+        <input className="form-control" type="search" placeholder="Search" aria-label="Search" value={props.address} onChange = {props.updateAddress}/>
 
         <div className="input-group-append">
           <button className="btn btn-search my-2 my-sm-0" type="submit" onClick={props.searchAddress}>Search</button>

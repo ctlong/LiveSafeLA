@@ -6,7 +6,7 @@ export default (props) => (
   <div className="map">
     <Map
       viewProperties={{
-        center: [-118.2851, 34.0224],
+        center: [props.x, props.y],
         zoom: 15
       }}
     />
