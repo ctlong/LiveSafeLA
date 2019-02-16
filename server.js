@@ -5,12 +5,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const app_token = (process.env.APP_TOKEN ? `$$app_token=${process.env.APP_TOKEN}&` : '');
-const reqString = `https://data.lacity.org/resource/7fvc-faax.json?${app_token}$limit=10000&$order=date_occ DESC&$select=date_occ, time_occ, crm_cd, vict_age, vict_sex, weapon_used_cd, location_1&`
+const reqString = `https://data.lacity.org/resource/7fvc-faax.json?${app_token}$limit=10000&$order=date_occ DESC&$select=date_occ, time_occ, crm_cd, vict_age, vict_sex, weapon_used_cd, location_1&`;
+const radius    = 5000;
 
 function httpRequest(params) {
     return new Promise(function(resolve, reject) {
         // start request
-        https.get(reqString + `$where=within_circle(location_1,${params.lat},${params.long},5000) AND ${params.crm_cd}`, (res) => {
+        https.get(reqString + `$where=within_circle(location_1,${params.lat},${params.long},${radius}) AND ${params.crm_cd}`, (res) => {
             // reject on bad status
             if(res.statusCode < 200 || res.statusCode >= 300) {
                 return reject(new Error('statusCode=' + res.statusCode));
@@ -37,7 +38,6 @@ function httpRequest(params) {
 }
 
 app.get('/api/search', (req, res) => {
-    var results = {};
     var opts = {
         lat: req.query.lat || 34.046,
         long: req.query.long || -118.2509,
@@ -45,6 +45,7 @@ app.get('/api/search', (req, res) => {
     };
     httpRequest(opts).then((httpRes) => {
         var result = {
+            'Radius': radius,
             'Arson': [],
             'Assault': [],
             'Bike Theft': [],
@@ -141,22 +142,7 @@ app.get('/api/search', (req, res) => {
 
 
         res.json(result);
-    })
-
-    // https.get(`https://data.lacity.org/resource/7fvc-faax.json?$limit=5000&$order=crm_cd ASC&$where=within_circle(location_1,${lat},${long},5000)`, (rest) => {
-    //     var output110 = '';
-    //     console.log(rest.statusCode);
-
-    //     rest.on('data', function (chunk) {
-    //         output110 += chunk;
-    //     });
-
-    //     rest.on('end', function() {
-    //         output['110'] = output110;
-    //     });
-    // }).then((result) => {
-
-    // })
+    });
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
