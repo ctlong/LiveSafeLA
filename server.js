@@ -62,6 +62,7 @@ app.get('/api/search', (req, res) => {
             'Vehicle Theft': []
         };
 
+        var violentCrimeCount = 0;
         httpRes.forEach(crime => {
             switch(crime.crm_cd) {
                 case '648':
@@ -75,6 +76,7 @@ app.get('/api/search', (req, res) => {
                 case '624':
                 case '625':
                     result['Assault'].push(crime);
+                    violentCrimeCount++;
                     break;
                 case '480':
                 case '485':
@@ -93,6 +95,7 @@ app.get('/api/search', (req, res) => {
                 case '110':
                 case '113':
                     result['Homicide'].push(crime);
+                    violentCrimeCount++;
                     break;
                 case '351':
                 case '352':
@@ -111,6 +114,7 @@ app.get('/api/search', (req, res) => {
                 case '822':
                 case '860':
                     result['Sex Crimes'].push(crime);
+                    violentCrimeCount++;
                     break;
                 case '341':
                 case '343':
@@ -138,8 +142,17 @@ app.get('/api/search', (req, res) => {
                     result['Vehicle Theft'].push(crime);
                     break;
             }
-        })
+        });
 
+        // console.log('count: ' + violentCrimeCount);
+        rating = Math.floor(2.5 + (violentCrimeCount - 165.25)/39.5);
+
+        if(rating > 5)
+            rating = 5
+        else if(rating < 0)
+            rating = 0;
+
+        result['Rating'] = rating;
 
         res.json(result);
     });
