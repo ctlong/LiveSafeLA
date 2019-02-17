@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const app_token = (process.env.APP_TOKEN ? `$$app_token=${process.env.APP_TOKEN}&` : '');
-const reqString = `https://data.lacity.org/resource/7fvc-faax.json?${app_token}$limit=1000&$order=date_occ DESC&$select=date_occ, time_occ, crm_cd, vict_age, vict_sex, weapon_used_cd, location_1, location&`;
+const reqString = `https://data.lacity.org/resource/7fvc-faax.json?${app_token}$limit=1500&$order=date_occ DESC&$select=date_occ, time_occ, crm_cd, vict_age, vict_sex, weapon_used_cd, location_1, location&`;
 const radius    = 800;
 
 function httpRequest(params) {

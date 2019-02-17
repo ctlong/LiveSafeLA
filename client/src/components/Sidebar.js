@@ -9,6 +9,8 @@ import moment from 'moment';
 
 import calculateConcerns from '../utils/concerns';
 
+import Pulse from './Pulse';
+
 const CRIME_CATEGORIES = [
   'Arson',
   'Assault',
@@ -274,6 +276,12 @@ export default (props) => {
 
   return (
     <div className="sidebar">
+      <div className="sidebar-section">
+        <h2>Crime Pulse</h2>
+
+        <Pulse data={props.data} />
+      </div>
+
       <div className="sidebar-section">
         <h2>Top Concerns</h2>
 
