@@ -4,7 +4,7 @@ export default (props) => (
   <div className="sidebar">
     <div className="sidebar-section">
       <h2>Rating</h2>
-      <p><b>{props.data.Rating}/5</b> This area is alright. Some crimes. Be safe out there. Watch your back. Call 911 if there is an emergency.</p>
+      <p><b>{props.data.Rating}/5</b> {props.data.RatingMessage}</p>
 
       <h3>Comparison</h3>
       <p>Compared to nearby neighborhoods, your neighborhood is <em>relatively better</em></p>
