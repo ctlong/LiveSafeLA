@@ -9,7 +9,7 @@ import Sidebar from '../components/Sidebar';
 
 import { debounce } from "throttle-debounce";
 
-const FIND_ADDRESS_URL = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?';
+const FIND_ADDRESS_URL = '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?';
 
 class Dashboard extends React.Component {
   constructor(props) {

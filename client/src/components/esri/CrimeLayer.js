@@ -104,19 +104,38 @@ export default class CrimeLayer extends React.Component {
             type: "simple-marker",
             color,
             size,
-            style: "circle"
+            style: "circle",
+            outline: {
+              width: 0,
+              color: "#FF0055",
+              style: "solid"
+            }
           };
+
 
           this.props.view.graphics.add(new Graphic({
             geometry: point,
             symbol: symbol,
             attributes: {
-              crimeType: crimeCategory
+              "crimeCategory": crimeCategory
+            },
+            popupTemplate: {
+              title: "test",
+              content: [{
+                type: "fields",
+                fieldInfos: {
+                  fieldName: "crimeCategory",
+                  label: "Crime Category",
+                  visible: true
+                }
+              }]
             }
           }))
         }
       }
     }).catch((err) => console.error(err));
+
+    console.log(this.props.view);
   }
 
   componentDidMount() {

@@ -4,7 +4,7 @@ import Constants from '../utils/constants.js';
 
 import { debounce } from "throttle-debounce";
 
-const FIND_ADDRESS_URL = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?';
+const FIND_ADDRESS_URL = '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?';
 
 class Landing extends React.Component {
   constructor(props) {
