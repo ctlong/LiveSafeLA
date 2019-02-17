@@ -6,6 +6,7 @@ const https   = require('https');
 const TOKEN      = process.env.APP_TOKEN; // $$app_token
 const REQ_URL    = 'https://data.lacity.org/resource/7fvc-faax.json';
 const RADIUS     = 800;
+const LIMIT      = 1500;
 const ISO_FORMAT = 'YYYY-MM-DD[T]HH:mm:ss.SSS';
 const CODES      = [
     230, 231, 235, 622, 623, 624, 625, 648, 480,
@@ -49,7 +50,10 @@ router.get('/search', (req, res) => {
     const dateParam = moment().subtract(6, 'months').format(ISO_FORMAT);
 
     var url  = REQ_URL;
-        url += `?$where=within_circle(location_1,${lat},${long},${RADIUS})`;
+        url += '?$limit=1000'
+        url += '&$order=date_occ DESC'
+        url += '&$select=date_occ, time_occ, crm_cd, vict_age, vict_sex, weapon_used_cd, location_1, location'
+        url += `&$where=within_circle(location_1,${lat},${long},${RADIUS})`;
         url += ` AND date_occ > \'${dateParam}\' AND (`;
     
     for(i in CODES) {
