@@ -30,9 +30,9 @@ export default class Pulse extends React.Component {
       }
 
       for (let crime of this.props.data[crimeCategory]) {
-        const month = new moment(crime.date_occ).format('MMMM YYYY');
+        const month = new moment(crime.date_occ).format('YYYY-MM');
 
-        if (month === 'February 2019') {
+        if (month === '2019-02') {
           continue;
         }
 
@@ -56,6 +56,10 @@ export default class Pulse extends React.Component {
     const data = labels.map((key) => (
       months[key]
     ));
+
+    for(var i=0;i<labels.length;i++) {
+      labels[i] = moment(labels[i]).format('MMMM-YYYY');
+    }
 
     const chartData = {
       labels: labels.slice(1, labels.length),
