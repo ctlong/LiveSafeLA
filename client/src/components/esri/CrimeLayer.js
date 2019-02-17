@@ -1,48 +1,77 @@
 import React from 'react';
 import { loadModules } from '@esri/react-arcgis';
 
+const COLOR = {
+  'Yellow': [173, 173, 0, 0.75],
+  'Red': [173, 0, 0, 0.75],
+  'Purple': [173, 0, 85, 0.75],
+  'Orange': [173, 110, 0, 0.75]
+}
+
+const SIZE = [
+  10,
+  15,
+  20,
+  40,
+  80
+]
+
 const CRIME_CATEGORIES = {
   'Arson': {
-    color: [255, 0, 0, 1]
+    color: COLOR['Yellow'],
+    size: SIZE[1]
   },
   'Assault': {
-    color: [0, 255, 0, 1]
+    color: COLOR['Red'],
+    size: SIZE[2]
   },
   'Bike Theft': {
-    color: [0, 0, 255, 1]
+    color: COLOR['Orange'],
+    size: SIZE[1]
   },
   'Burglary': {
-    color: [150, 0, 150, 1]
+    color: COLOR['Orange'],
+    size: SIZE[2]
   },
   'Disturbing the Peace': {
-    color: [200, 200, 0, 1]
+    color: COLOR['Purple'],
+    size: SIZE[0]
   },
   'DUI/Reckless Driving': {
-    color: [175, 100, 75, 1]
+    color: COLOR['Purple'],
+    size: SIZE[2]
   },
   'Homicide': {
-    color: [75, 100, 175, 1]
+    color: COLOR['Red'],
+    size: SIZE[4]
   },
   'Pickpocketing/Purse-Snatching': {
-    color: [255, 255, 0, 1]
+    color: COLOR['Orange'],
+    size: SIZE[0]
   },
   'Robbery': {
-    color: [0, 255, 255, 1]
+    color: COLOR['Orange'],
+    size: SIZE[3]
   },
   'Sex Crimes': {
-    color: [20, 50, 90, 1]
+    color: COLOR['Purple'],
+    size: SIZE[1]
   },
   'Theft/Larceny': {
-    color: [90, 90, 120, 1]
+    color: COLOR['Orange'],
+    size: SIZE[2]
   },
   'Vandalism': {
-    color: [120, 120, 0, 1]
+    color: COLOR['Yellow'],
+    size: SIZE[0]
   },
   'Vehicle Break-In': {
-    color: [190, 60, 40, 1]
+    color: COLOR['Orange'],
+    size: SIZE[1]
   },
   'Vehicle Theft': {
-    color: [40, 30, 98, 1]
+    color: COLOR['Orange'],
+    size: SIZE[2]
   }
 };
 
@@ -68,10 +97,13 @@ export default class CrimeLayer extends React.Component {
             y: crime.location_1.coordinates[1]
           }
 
+          const color = CRIME_CATEGORIES[crimeCategory].color;
+          const size = CRIME_CATEGORIES[crimeCategory].size;
+
           const symbol = {
             type: "simple-marker",
-            color: CRIME_CATEGORIES[crimeCategory].color,
-            size: 20,
+            color,
+            size,
             style: "circle"
           };
 
