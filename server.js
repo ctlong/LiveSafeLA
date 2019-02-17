@@ -7,6 +7,14 @@ const port = process.env.PORT || 5000;
 const app_token = (process.env.APP_TOKEN ? `$$app_token=${process.env.APP_TOKEN}&` : '');
 const reqString = `https://data.lacity.org/resource/7fvc-faax.json?${app_token}$limit=1000&$order=date_occ DESC&$select=date_occ, time_occ, crm_cd, vict_age, vict_sex, weapon_used_cd, location_1&`;
 const radius    = 800;
+const messages  = [
+    'This area is safe. Wander freely. Call 911 if there is an emergency.',
+    'This area is decently safe. Still watch your back. Call 911 if there is an emergency.',
+    'This area is alright. Some crimes. Be safe out there. Watch your back. Call 911 if there is an emergency.',
+    'This area is not safe. Lots of crimes. Be safe out there. Watch your back. Call 911 if there is an emergency.',
+    'This area is violent. Let someone know where you are for sure. Call 911 if there is an emergency.',
+    'You should leave here unless you know what you\'re doing!'
+];
 
 function httpRequest(params) {
     return new Promise(function(resolve, reject) {
@@ -148,11 +156,12 @@ app.get('/api/search', (req, res) => {
         rating = Math.floor(2.5 + (violentCrimeCount - 165.25)/39.5);
 
         if(rating > 5)
-            rating = 5
+            rating = 5;
         else if(rating < 0)
             rating = 0;
 
-        result['Rating'] = rating;
+        result['Rating']        = rating;
+        result['RatingMessage'] = messages[rating];
 
         res.json(result);
     });
