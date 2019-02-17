@@ -32,6 +32,10 @@ export default class Pulse extends React.Component {
       for (let crime of this.props.data[crimeCategory]) {
         const month = new moment(crime.date_occ).format('MMMM YYYY');
 
+        if (month === 'February 2019') {
+          continue;
+        }
+
         if (months[month] === undefined) {
           months[month] = 1;
         } else {
@@ -54,7 +58,7 @@ export default class Pulse extends React.Component {
     ));
 
     const chartData = {
-      labels,
+      labels: labels.slice(1, labels.length),
       datasets: [
         {
           label: "Crime Pulse",
@@ -64,7 +68,7 @@ export default class Pulse extends React.Component {
     			pointStrokeColor: "#fff",
     			pointHighlightFill: "#fff",
     			pointHighlightStroke: "rgba(151,187,205,1)",
-          data
+          data: data.slice(1, data.length)
         }
       ]
     }
