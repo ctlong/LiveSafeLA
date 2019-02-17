@@ -1,8 +1,34 @@
 .navbar {
   .search-form {
     width: 400px;
+    position: relative;
+
     .input-group {
       width: 100%;
+    }
+
+    .search-suggestions {
+      width: 80%;
+      box-sizing: border-box;
+      position: absolute;
+      top: 3rem;
+      left: 0.5rem;
+      border-radius: 0 0 0.25rem 0.25rem;
+      overflow: hidden;
+
+      .suggestion {
+        background: #FFFFFF;
+        color: #383838;
+        font-weight: 300;
+        padding: 1rem;
+        border-bottom: 1px solid #ededed;
+
+        &:hover {
+          background: #d8d8d8;
+          transition: 0.25s all;
+          cursor: pointer;
+        }
+      }
     }
   }
 
