@@ -5,13 +5,15 @@
   "dependencies": {
     "@esri/react-arcgis": "^4.0.0",
     "bootstrap": "^4.3.1",
+    "moment": "^2.24.0",
     "node-sass": "^4.11.0",
     "query-string": "^6.2.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "throttle-debounce": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,5 +29,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "proxy": "http://localhost:5000"
 }
