@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "express": "^4.16.4",
+    "moment": "^2.24.0",
     "throttle-debounce": "^2.1.0"
   }
 }

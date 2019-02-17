@@ -1,5 +1,6 @@
 const express = require('express');
 const https   = require('https');
+const moment  = require('moment');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -67,7 +68,23 @@ app.get('/api/search', (req, res) => {
             'Theft/Larceny': [],
             'Vandalism': [],
             'Vehicle Break-In': [],
-            'Vehicle Theft': []
+            'Vehicle Theft': [],
+            'Concerns': {
+              'Arson': [],
+              'Assault': [],
+              'Bike Theft': [],
+              'Burglary': [],
+              'Disturbing the Peace': [],
+              'DUI/Reckless Driving': [],
+              'Homicide': [],
+              'Pickpocketing/Purse-Snatching': [],
+              'Robbery': [],
+              'Sex Crimes': [],
+              'Theft/Larceny': [],
+              'Vandalism': [],
+              'Vehicle Break-In': [],
+              'Vehicle Theft': []
+            }
         };
 
         var violentCrimeCount = 0;
@@ -75,6 +92,11 @@ app.get('/api/search', (req, res) => {
             switch(crime.crm_cd) {
                 case '648':
                     result['Arson'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Arson'].push(crime)
+                    }
+
                     break;
                 case '230':
                 case '231':
@@ -84,25 +106,55 @@ app.get('/api/search', (req, res) => {
                 case '624':
                 case '625':
                     result['Assault'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Assault'].push(crime)
+                    }
+
                     violentCrimeCount++;
                     break;
                 case '480':
                 case '485':
                     result['Bike Theft'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Bike Theft'].push(crime)
+                    }
+
                     break;
                 case '310':
                 case '320':
                     result['Burglary'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Burglary'].push(crime)
+                    }
+
                     break;
                 case '886':
                     result['Disturbing the Peace'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Disturbing the Peace'].push(crime)
+                    }
+
                     break;
                 case '438':
                     result['DUI/Reckless Driving'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['DUI/Reckless Driving'].push(crime)
+                    }
+
                     break;
                 case '110':
                 case '113':
                     result['Homicide'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Homicide'].push(crime)
+                    }
+
                     violentCrimeCount++;
                     break;
                 case '351':
@@ -110,10 +162,20 @@ app.get('/api/search', (req, res) => {
                 case '451':
                 case '452':
                     result['Pickpocketing/Purse-Snatching'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Pickpocketing/Purse-Snatching'].push(crime)
+                    }
+
                     break;
                 case '210':
                 case '220':
                     result['Robbery'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Robbery'].push(crime)
+                    }
+
                     break;
                 case '121':
                 case '122':
@@ -122,6 +184,11 @@ app.get('/api/search', (req, res) => {
                 case '822':
                 case '860':
                     result['Sex Crimes'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Sex Crimes'].push(crime)
+                    }
+
                     violentCrimeCount++;
                     break;
                 case '341':
@@ -133,10 +200,20 @@ app.get('/api/search', (req, res) => {
                 case '443':
                 case '450':
                     result['Theft/Larceny'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Theft/Larceny'].push(crime)
+                    }
+
                     break;
                 case '740':
                 case '745':
                     result['Vandalism'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Vandalism'].push(crime)
+                    }
+
                     break;
                 case '330':
                 case '331':
@@ -144,10 +221,20 @@ app.get('/api/search', (req, res) => {
                 case '420':
                 case '421':
                     result['Vehicle Break-In'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Vehicle Break-In'].push(crime)
+                    }
+
                     break;
                 case '510':
                 case '520':
                     result['Vehicle Theft'].push(crime);
+
+                    if (moment(crime.date_occ).isAfter(moment().subtract(6, 'months'))) {
+                      result['Concerns']['Vehicle Theft'].push(crime)
+                    }
+
                     break;
             }
         });

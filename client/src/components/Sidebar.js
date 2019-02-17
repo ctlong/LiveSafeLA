@@ -7,6 +7,8 @@ import React from 'react';
 
 import moment from 'moment';
 
+import calculateConcerns from '../utils/concerns';
+
 const CRIME_CATEGORIES = [
   'Arson',
   'Assault',
@@ -27,6 +29,177 @@ const CRIME_CATEGORIES = [
 export default (props) => {
   let topConcerns = [];
 
+  let concerns = [];
+
+  if (props.dataLoaded) {
+    concerns = calculateConcerns(props.data);
+
+    topConcerns = concerns.map((key, index) => {
+      console.log(key);
+
+      const crime = key[0];
+      const count = key[1].length;
+
+      if (count === 0) {
+        return (undefined)
+      }
+
+      if (crime === 'Arson') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} arson related crimes were reported in the area.
+            Make sure to look into resources for fire proofing your home and look into
+            investing in fire insurance in case of such a heinous crime.
+          `
+        }
+      }
+
+      if (crime === 'Assault') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} assault related crimes were reported in the area.
+            Be vigilant of your surroundings when walking through the area. If possible,
+            commute in groups especially at night.
+          `
+        }
+      }
+
+      if (crime === 'Bike Theft') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} bike theft crimes were reported in the area.
+            If you are someone that uses their bike and leaves it outside, invest in a secure bike
+            lock and make sure to follow the recommended bike lock procedures.
+          `
+        }
+      }
+
+      if (crime === 'Burglary') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} burglary crimes were reported in the area.
+            Make sure to lock and secure your home when you are not present. Look into
+            investing in home security to ensure your home is properly monitored.
+          `
+        }
+      }
+
+      if (crime === 'Disturbing the Peace') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} disturbing the peace crimes were reported in the area.
+            Though a minor crime, be wary of any disturbances that may affect you or your neighbors.
+          `
+        }
+      }
+
+      if (crime === 'DUI/Reckless Driving') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} DUI/reckless driving crimes were reported in the area.
+            As a pedestrian, be careful about travelling and be cautious of reckless or drunk drivers.
+            Same goes if you drive a car. If you notice any reckless driving in your area, report it
+            immediately.
+          `
+        }
+      }
+
+      if (crime === 'Homicide') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} homicides were reported in the area.
+            Be vigilant about activities in your neighborhood and look into securing your home
+            in case of a violent crime.
+          `
+        }
+      }
+
+      if (crime === 'Pickpocketing/Purse-Snatching') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} pickpocketing/purse-snatching crimes were reported in the area.
+            Hold onto your belongings carefully and be wary of the items you carry. Be cautious of
+            suspicious figures and don't take your eyes off of your belongings.
+          `
+        }
+      }
+
+      if (crime === 'Robbery') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} robberies were reported in the area.
+            Be careful not to stand out as a potential victim for robbery. If confronted, do not fight back.
+            Report a robbery immediately and avoid physical confrontation if possible.
+          `
+        }
+      }
+
+      if (crime === 'Sex Crimes') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} sex crimes were reported in the area.
+            Report any sex crimes to the appropriate officials.
+          `
+        }
+      }
+
+      if (crime === 'Theft/Larceny') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} theft crimes were reported in the area.
+            Keep an eye on your belongings and make sure they are in a secure location.
+            Be wary of any suspicious individuals and keep your guard up at all times.
+          `
+        }
+      }
+
+      if (crime === 'Vandalism') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} vandalism crimes were reported in the area.
+            If you see any vandalism occuring, report it immediately.
+          `
+        }
+      }
+
+      if (crime === 'Vehicle Break-In') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} vehicle break-ins were reported in the area.
+            Lock your vehicle whenever it is unattended. Do not leave valuable belongings in
+            your vehicle if possible and hide items from plain sight.
+          `
+        }
+      }
+
+      if (crime === 'Vehicle Theft') {
+        return {
+          title: crime,
+          content: `
+            In the last 6 months, ${count} vehicle thefts were reported in the area.
+            Lock your vehicle whenever it is unattended. Watch your surroundings anytime you
+            enter or leave your vehicle. Be careful about sitting idle in your car and note any
+            suspicious individuals.
+          `
+        }
+      }
+    })
+  }
+
+  /*
   if (props.data.Rating >= 4) {
     topConcerns = [
       {
@@ -107,14 +280,21 @@ export default (props) => {
       }
     ]
   }
+  */
 
-  const topConcernsOutput = topConcerns.map((concern, index) => (
-    <div className="concern" key={index}>
-      <h3>{concern.title}</h3>
+  let topConcernsOutput = topConcerns.map((concern, index) => {
+    if (concern === undefined) {
+      return (undefined);
+    }
 
-      <p>{concern.content}</p>
-    </div>
-  ))
+    return (
+      <div className="concern" key={index}>
+        <h3>{concern.title}</h3>
+
+        <p>{concern.content}</p>
+      </div>
+    )
+  })
 
   if (!props.dataLoaded) {
       return (
@@ -172,7 +352,7 @@ export default (props) => {
         crimeDate = crimeDate.format('MMMM DD, YYYY');
 
         return (
-          <tr>
+          <tr key={crime.date_occ + '-' + index}>
             <td>{crime.location}</td>
             <td>{crimeDate}</td>
           </tr>
@@ -180,17 +360,32 @@ export default (props) => {
       })
 
       tables.push((
-        <div>
-          <h4>{crimeCategory}</h4>
+        <div key={'table-' + crimeCategory}>
+          <h4>{crimeCategory} ({props.data[crimeCategory].length})</h4>
 
           <div className="table-container">
             <table className="table">
-              {tableRows}
+              <tbody>
+                {tableRows}
+              </tbody>
             </table>
           </div>
         </div>
       ))
     }
+  }
+
+  const noTopConcerns = (<p>There are no top concerns for this area as there have not been many crimes here in the past 6 months.</p>);
+
+  let undefinedCount = 0;
+  for(var i=0;i<3;i++) {
+    if (topConcernsOutput[i] === undefined) {
+      undefinedCount++;
+    }
+  }
+
+  if (undefinedCount === 3) {
+    topConcernsOutput = noTopConcerns;
   }
 
   return (

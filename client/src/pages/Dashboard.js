@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Constants from '../utils/constants.js';
 import queryString from "query-string"
 
 import Navbar from '../components/Navbar';
