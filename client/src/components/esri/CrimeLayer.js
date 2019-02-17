@@ -1,11 +1,13 @@
 import React from 'react';
 import { loadModules } from '@esri/react-arcgis';
 
+import moment from 'moment';
+
 const COLOR = {
-  'Yellow': [173, 173, 0, 0.75],
-  'Red': [173, 0, 0, 0.75],
-  'Purple': [173, 0, 85, 0.75],
-  'Orange': [173, 110, 0, 0.75]
+  'Yellow': [173, 173, 0, 0.05],
+  'Red': [173, 0, 0, 0.05],
+  'Purple': [173, 0, 85, 0.05],
+  'Orange': [173, 110, 0, 0.05]
 }
 
 const SIZE = [
@@ -97,7 +99,35 @@ export default class CrimeLayer extends React.Component {
             y: crime.location_1.coordinates[1]
           }
 
+          let crimeDate = new moment(new Date(crime.date_occ));
+          crimeDate = crimeDate.format('MMMM DD, YYYY');
+
+          let victAge = crime.vict_age;
+          let victSex = crime.vict_sex;
+
+          if (parseInt(victAge) > 100) {
+            victAge = undefined;
+          }
+
           const color = CRIME_CATEGORIES[crimeCategory].color;
+
+          // Fade out color if crime occurred  a while ago
+          if (moment(crimeDate).isAfter(moment().subtract(2, 'years'))) {
+            color[3] = 0.35;
+          }
+
+          if (moment(crimeDate).isAfter(moment().subtract(1, 'years'))) {
+            color[3] = 0.5;
+          }
+
+          if (moment(crimeDate).isAfter(moment().subtract(6, 'months'))) {
+            color[3] = 0.75;
+          }
+
+          if (moment(crimeDate).isAfter(moment().subtract(3, 'months'))) {
+            color[3] = 0.8;
+          }
+
           const size = CRIME_CATEGORIES[crimeCategory].size;
 
           const symbol = {
@@ -112,30 +142,47 @@ export default class CrimeLayer extends React.Component {
             }
           };
 
-
           this.props.view.graphics.add(new Graphic({
             geometry: point,
             symbol: symbol,
             attributes: {
-              "crimeCategory": crimeCategory
+              crimeCategory,
+              crimeDate,
+              victAge,
+              victSex
             },
             popupTemplate: {
-              title: "test",
+              title: `Crime Report [${crimeDate}]`,
               content: [{
                 type: "fields",
-                fieldInfos: {
-                  fieldName: "crimeCategory",
-                  label: "Crime Category",
-                  visible: true
-                }
+                fieldInfos: [
+                  {
+                    fieldName: "crimeCategory",
+                    label: "Crime Category",
+                    visible: true
+                  },
+                  {
+                    fieldName: "crimeDate",
+                    label: "Date Occurred",
+                    visible: true
+                  },
+                  {
+                    fieldName: "victAge",
+                    label: "Victim Age",
+                    visible: (victAge === undefined) ? (false) : (true)
+                  },
+                  {
+                    fieldName: "victSex",
+                    label: "Victim Sex",
+                    visible: (victSex === undefined) ? (false) : (true)
+                  }
+                ]
               }]
             }
           }))
         }
       }
     }).catch((err) => console.error(err));
-
-    console.log(this.props.view);
   }
 
   componentDidMount() {
@@ -143,6 +190,7 @@ export default class CrimeLayer extends React.Component {
     .then(response => response.json())
     .then(data => {
       this.setState({data}, () => {
+        console.log(this.state.data);
         this.drawPoints(this.state.data)
         this.props.updateData(data);
       });
