@@ -20,7 +20,8 @@ class Dashboard extends React.Component {
       coordinates: [],
       suggestions: [],
       showSuggestions: false,
-      data: {}
+      data: {},
+      dataLoaded: false
     }
 
     // Used for autocomplete to prevent making a call every time state.address is changed
@@ -58,7 +59,8 @@ class Dashboard extends React.Component {
 
   _updateData = (data) => {
     this.setState({
-      data
+      data,
+      dataLoaded: true
     })
   }
 
@@ -143,7 +145,7 @@ class Dashboard extends React.Component {
             </div>
 
             <div className="col sidebar-col">
-              <Sidebar data={this.state.data} />
+              <Sidebar data={this.state.data} dataLoaded={this.state.dataLoaded}/>
             </div>
           </div>
         </div>

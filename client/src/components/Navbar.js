@@ -44,7 +44,7 @@ export default class Navbar extends React.Component {
           {autocomplete}
         </form>
 
-        <a className="btn btn-outline-light signup-btn" href="#">Sign Up</a>
+        {/*<a className="btn btn-outline-light signup-btn" href="#">Sign Up</a>*/}
       </nav>
     )
   }

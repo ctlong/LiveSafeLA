@@ -82,6 +82,24 @@
 
     .sidebar-section {
       padding: 1rem;
+
+      h2 {
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #d3d3d3;
+      }
+    }
+
+    .concerns {
+      h3 {
+        font-size: 1.5rem;
+      }
     }
   }
+}
+
+.table-container {
+  max-height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #ededed;
+  margin-bottom: 2rem;
 }
