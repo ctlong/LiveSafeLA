@@ -8,19 +8,12 @@ const port = process.env.PORT || 5000;
 const app_token = (process.env.APP_TOKEN ? `$$app_token=${process.env.APP_TOKEN}&` : '');
 const reqString = `https://data.lacity.org/resource/7fvc-faax.json?${app_token}$limit=1000&$order=date_occ DESC&$select=date_occ, time_occ, crm_cd, vict_age, vict_sex, weapon_used_cd, location_1, location&`;
 const radius    = 800;
-const messages  = [
-    'This area is safe. Wander freely. Call 911 if there is an emergency.',
-    'This area is decently safe. Still watch your back. Call 911 if there is an emergency.',
-    'This area is alright. Some crimes. Be safe out there. Watch your back. Call 911 if there is an emergency.',
-    'This area is not safe. Lots of crimes. Be safe out there. Watch your back. Call 911 if there is an emergency.',
-    'This area is violent. Let someone know where you are for sure. Call 911 if there is an emergency.',
-    'You should leave here unless you know what you\'re doing!'
-];
 
 function httpRequest(params) {
     return new Promise(function(resolve, reject) {
         // start request
-        https.get(reqString + `$where=within_circle(location_1,${params.lat},${params.long},${radius}) AND ${params.crm_cd}`, (res) => {
+        const dateParam = moment().subtract(6, 'months').format('YYYY-MM-DD[T]HH:mm:ss.SSS')
+        https.get(reqString + `$where=within_circle(location_1,${params.lat},${params.long},${radius}) AND date_occ > \'${dateParam}\' AND ${params.crm_cd}`, (res) => {
             // reject on bad status
             if(res.statusCode < 200 || res.statusCode >= 300) {
                 return reject(new Error('statusCode=' + res.statusCode));
@@ -87,7 +80,6 @@ app.get('/api/search', (req, res) => {
             }
         };
 
-        var violentCrimeCount = 0;
         httpRes.forEach(crime => {
             switch(crime.crm_cd) {
                 case '648':
@@ -111,7 +103,6 @@ app.get('/api/search', (req, res) => {
                       result['Concerns']['Assault'].push(crime)
                     }
 
-                    violentCrimeCount++;
                     break;
                 case '480':
                 case '485':
@@ -155,7 +146,6 @@ app.get('/api/search', (req, res) => {
                       result['Concerns']['Homicide'].push(crime)
                     }
 
-                    violentCrimeCount++;
                     break;
                 case '351':
                 case '352':
@@ -189,7 +179,6 @@ app.get('/api/search', (req, res) => {
                       result['Concerns']['Sex Crimes'].push(crime)
                     }
 
-                    violentCrimeCount++;
                     break;
                 case '341':
                 case '343':
@@ -238,17 +227,6 @@ app.get('/api/search', (req, res) => {
                     break;
             }
         });
-
-        // console.log('count: ' + violentCrimeCount);
-        rating = Math.floor(2.5 + (violentCrimeCount - 165.25)/39.5);
-
-        if(rating > 5)
-            rating = 5;
-        else if(rating < 0)
-            rating = 0;
-
-        result['Rating']        = rating;
-        result['RatingMessage'] = messages[rating];
 
         res.json(result);
     });

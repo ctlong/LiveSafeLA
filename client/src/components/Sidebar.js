@@ -199,89 +199,6 @@ export default (props) => {
     })
   }
 
-  /*
-  if (props.data.Rating >= 4) {
-    topConcerns = [
-      {
-        title: 'Homicides',
-        content: `
-          Based off our records, there is a track record of homicides in your area.
-          As a result, please exercise caution and be wary of your surroundings.
-        `
-      },
-      {
-        title: 'Assaults',
-        content: `
-          Assaults are common in this area. When walking around, exercise caution.
-        `
-      },
-      {
-        title: 'Burglaries',
-        content: `
-          Secure your home with home security equipment. When leaving home, make sure
-          doors are secured.
-        `
-      },
-      {
-        title: 'Car Break Ins',
-        content: `
-          Do not leave any valuable items in plain sight. Store valuable items in the
-          glove compartment and always lock your car if possible.
-        `
-      }
-    ]
-  } else if (props.data.rating == 3) {
-    topConcerns = [
-      {
-        title: 'Assaults',
-        content: `
-          Assaults are common in this area. When walking around, exercise caution.
-        `
-      },
-      {
-        title: 'Burglaries',
-        content: `
-          Secure your home with home security equipment. When leaving home, make sure
-          doors are secured.
-        `
-      },
-      {
-        title: 'Car Break Ins',
-        content: `
-          Do not leave any valuable items in plain sight. Store valuable items in the
-          glove compartment and always lock your car if possible.
-        `
-      },
-      {
-        title: 'Theft',
-        content: `
-          Theft and larceny is common in this area. Watch your valuables and keep track
-          of your posessions at all times.
-        `
-      }
-    ]
-  } else if (props.data.rating == 0) {
-    topConcerns = [
-      {
-        title: 'None',
-        content: `
-          There are little to no concerns about crime in this area.
-        `
-      }
-    ]
-  } else {
-    topConcerns = [
-      {
-        title: 'Theft',
-        content: `
-          Theft and larceny is common in this area. Watch your valuables and keep track
-          of your posessions at all times.
-        `
-      }
-    ]
-  }
-  */
-
   let topConcernsOutput = topConcerns.map((concern, index) => {
     if (concern === undefined) {
       return (undefined);
@@ -305,39 +222,6 @@ export default (props) => {
         </div>
       )
   }
-
-  let ratingMessage;
-
-  if (props.data.Rating == 5) {
-    ratingMessage = (
-      <div className="alert alert-danger" role="alert">
-        <h3>LiveSafe LA Score: {props.data.Rating}/5</h3>
-        {props.data.RatingMessage}
-      </div>
-    )
-  } else if (props.data.Rating < 5 && props.data.Rating >= 3) {
-    ratingMessage = (
-      <div className="alert alert-warning" role="alert">
-        <h3>LiveSafe LA Score: {props.data.Rating}/5</h3>
-        {props.data.RatingMessage}
-      </div>
-    )
-  } else if (props.data.Rating < 3 && props.data.Rating >= 1){
-    ratingMessage = (
-      <div className="alert alert-dark" role="alert">
-        <h3>LiveSafe LA Score: {props.data.Rating}/5</h3>
-        {props.data.RatingMessage}
-      </div>
-    )
-  } else {
-    ratingMessage = (
-      <div className="alert alert-info" role="alert">
-        <h3>LiveSafe LA Score: {props.data.Rating}/5</h3>
-        {props.data.RatingMessage}
-      </div>
-    )
-  }
-
 
   const tables = [];
 
@@ -390,12 +274,6 @@ export default (props) => {
 
   return (
     <div className="sidebar">
-      <div className="sidebar-section">
-        <h2>Rating</h2>
-
-        {ratingMessage}
-      </div>
-
       <div className="sidebar-section">
         <h2>Top Concerns</h2>
 
